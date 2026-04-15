@@ -1,0 +1,52 @@
+model User {
+    id Int @id @default(autoincrement())
+    email String @unique
+    password String
+    role Role @default(CLIENT)
+    address String
+    truck TruckID?
+}
+
+model Order {
+    id Int @default(autoincrement())
+    name String
+    price Decimal
+    shippingAddress String
+    userID Int @unique
+    truckID Int @unique
+
+    user User @relation(fields: [userID], references: [id])
+    turck Truck @relation(fields: [truckID], references: [id])
+
+}
+
+model Truck {
+    id Int @default(autoincrement())
+    name String
+    licenseNumber String
+    userID Int
+    routes Route[]
+    user User@relation(fields: [userID], references: [id])
+
+}
+
+model Route {
+    id Int @default(autoincrement())
+    name String
+    street String //maybe change
+    trucks Truck[]
+    userID Int
+
+    user User@relation(fields: [userID], references: [id])
+
+}
+
+enum Role {
+    CLIENT
+    ADMIN
+    EMPLOYEE
+}
+
+
+//These models go into schema.prisma at the bottom
+//After type this into terminal - npx prisma migrate dev after each model and name them init_(name)(s) -> e.g: init_users
