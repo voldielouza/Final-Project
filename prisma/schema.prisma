@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+    CLIENT
+    ADMIN
+    EMPLOYEE
+}
+
+model User {
+    id Int @id @default(autoincrement())
+    email String @unique
+    password String
+    role Role @default(CLIENT)
+    address String
+
+    truckID Truck?
+    orders Order[]
+}
+
+model Order {
+    id Int @default(autoincrement())
+    name String
+    price Decimal
+    shippingAddress String
+    userID Int @unique
+    truckID Int @unique
+
+    user User @relation(fields: [userID], references: [id], onDelete: Cascade)
+    truck Truck @relation(fields: [truckID], references: [id], onDelete: Cascade)
+
+}
+
+model Truck {
+    id Int @id @default(autoincrement())
+    name String
+    licenseNumber String
+    userID Int @unique
+
+    routes Route[]
+    orders Order[]
+    user User@relation(fields: [userID], references: [id])
+
+}
+
+model Route {
+    id Int @id @default(autoincrement())
+    name String
+    street String //maybe change
+    userID Int
+
+    trucks Truck[]
+}
