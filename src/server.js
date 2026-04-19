@@ -1,6 +1,9 @@
 import express from 'express';
 import morgan from 'morgan';
 import authRoutes from './routes/authRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import truckRoutes from './routes/truckRoutes.js';
+import routeRoutes from './routes/routeRoutes.js';
 
 const app= express();
 const PORT = 3000;
@@ -9,6 +12,9 @@ app.use(express.json());
 if(process.env !=='test') app.use(morgan('tiny'));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/trucks', truckRoutes);
+app.use('/api/routes', routeRoutes);
 
 app.use((err, req, res, next) => {
     console.log(err.stack);

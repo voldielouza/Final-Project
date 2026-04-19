@@ -1,27 +1,27 @@
 import prisma from '../config/db.js';
 
 export async function getAll() {
-    const orders = await prisma.order.findMany();
-    return orders;
+    const trucks = await prisma.truck.findMany();
+    return trucks;
 }
 
 export async function getById(id) {
-    const order = await prisma.order.findUnique({where: {id}});
-    return order;
+    const truck = await prisma.truck.findUnique({where: {id}});
+    return truck;
 }
 
-export async function create(orderData) {
-    const newOrder = prisma.order.create({data: orderData});
-    return newOrder;
+export async function create(truckData) {
+    const newTruck = prisma.truck.create({data: truckData});
+    return newTruck;
 }
 
 export async function update(id, updatedData) {
     try {
-    const updatedOrder = await prisma.order.update({
+    const updatedTruck = await prisma.truck.update({
       where: { id },
       data: updatedData,
     });
-    return updatedOrder;
+    return updatedTruck;
   } catch (error) {
     if (error.code === 'P2025') return null;
     throw error;
@@ -30,10 +30,10 @@ export async function update(id, updatedData) {
 
 export async function remove(id) {
     try {
-    const deletedOrder = await prisma.order.delete({
+    const deletedTruck = await prisma.truck.delete({
       where: { id },
     });
-    return deletedOrder;
+    return deletedTruck;
   } catch (error) {
     if (error.code === 'P2025') return null;
     throw error;
