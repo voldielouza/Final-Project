@@ -1,4 +1,4 @@
-//import something prisma
+import prisma from '../config/db.js';
 
 export async function createUser(data) {
     const newUser = await prisma.user.create({data, omit: {password: true}});
