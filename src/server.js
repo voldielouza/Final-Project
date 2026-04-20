@@ -4,6 +4,7 @@ import authRoutes from './routes/authRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import truckRoutes from './routes/truckRoutes.js';
 import routeRoutes from './routes/routeRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app= express();
 const PORT = 3000;
@@ -15,6 +16,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/trucks', truckRoutes);
 app.use('/api/routes', routeRoutes);
+app.use('/api/users', userRoutes);
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
