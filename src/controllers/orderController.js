@@ -1,4 +1,4 @@
-import {getAllOrders, getOrderById} from '../services/orderService.js';
+import {getAllOrders, getOrderById, updateOrder, deleteOrder, createOrder} from '../services/orderService.js';
 
 export async function getAllOrdersHandler(req, res) {
     let orders = await getAllOrders();

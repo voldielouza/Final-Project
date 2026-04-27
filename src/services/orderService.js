@@ -1,4 +1,4 @@
-import {getAll, getById} from '../repositories/orderRepo.js';
+import {getAll, getById, create, update, remove} from '../repositories/orderRepo.js';
 
 export async function getAllOrders() {
     return getAll();

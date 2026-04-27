@@ -20,10 +20,3 @@ export function authenticate(req, res, next) {
     }
 }
 
-export const isAdmin = (req, res, next) => {
-    if (req.user.role === 'ADMIN') {
-        next();
-    } else {
-        return next(err);    
-    }
-}

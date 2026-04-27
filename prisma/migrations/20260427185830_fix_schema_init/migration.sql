@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "orders" ADD CONSTRAINT "orders_pkey" PRIMARY KEY ("id");

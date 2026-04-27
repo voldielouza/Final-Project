@@ -11,7 +11,7 @@ export async function getById(id) {
 }
 
 export async function create(truckData) {
-    const newTruck = prisma.truck.create({data: truckData});
+    const newTruck = await prisma.truck.create({data: truckData});
     return newTruck;
 }
 
