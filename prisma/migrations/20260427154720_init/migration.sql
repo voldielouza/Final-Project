@@ -1,38 +1,5 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Order` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Route` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Truck` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Order" DROP CONSTRAINT "Order_truckID_fkey";
-
--- DropForeignKey
-ALTER TABLE "Order" DROP CONSTRAINT "Order_userID_fkey";
-
--- DropForeignKey
-ALTER TABLE "Truck" DROP CONSTRAINT "Truck_userID_fkey";
-
--- DropForeignKey
-ALTER TABLE "_RouteToTruck" DROP CONSTRAINT "_RouteToTruck_A_fkey";
-
--- DropForeignKey
-ALTER TABLE "_RouteToTruck" DROP CONSTRAINT "_RouteToTruck_B_fkey";
-
--- DropTable
-DROP TABLE "Order";
-
--- DropTable
-DROP TABLE "Route";
-
--- DropTable
-DROP TABLE "Truck";
-
--- DropTable
-DROP TABLE "User";
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('CLIENT', 'ADMIN', 'EMPLOYEE');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -75,17 +42,25 @@ CREATE TABLE "routes" (
     CONSTRAINT "routes_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+-- CreateTable
+CREATE TABLE "_RouteToTruck" (
+    "A" INTEGER NOT NULL,
+    "B" INTEGER NOT NULL,
+
+    CONSTRAINT "_RouteToTruck_AB_pkey" PRIMARY KEY ("A","B")
+);
 
 -- CreateIndex
-CREATE UNIQUE INDEX "orders_userID_key" ON "orders"("userID");
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "orders_truckID_key" ON "orders"("truckID");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "trucks_userID_key" ON "trucks"("userID");
+
+-- CreateIndex
+CREATE INDEX "_RouteToTruck_B_index" ON "_RouteToTruck"("B");
 
 -- AddForeignKey
 ALTER TABLE "orders" ADD CONSTRAINT "orders_userID_fkey" FOREIGN KEY ("userID") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;

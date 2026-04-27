@@ -5,6 +5,9 @@ import orderRoutes from './routes/orderRoutes.js';
 import truckRoutes from './routes/truckRoutes.js';
 import routeRoutes from './routes/routeRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import yaml from 'js-yaml';
+import fs from 'fs';
+import swaggerUi from 'swagger-ui-express';
 
 const app= express();
 const PORT = 3000;
@@ -12,6 +15,15 @@ const PORT = 3000;
 app.use(express.json());
 if(process.env !=='test') app.use(morgan('tiny'));
 
+let specs;
+try{
+    specs = yaml.load(fs.readFileSync('./docs/openapi.yaml', 'utf8'));
+} catch(error) {
+    console.log('Failed to load OpenAPI specification', error);
+    process.exit(1);
+}
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/trucks', truckRoutes);

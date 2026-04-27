@@ -35,12 +35,12 @@ model Order {
     name String
     price Decimal
     shippingAddress String
-    userID Int @unique
+    userID Int
     truckID Int @unique
 
     user User @relation(fields: [userID], references: [id], onDelete: Cascade)
     truck Truck @relation(fields: [truckID], references: [id], onDelete: Cascade)
-        @@map("orders")
+    @@map("orders")
 
 }
 
@@ -53,16 +53,17 @@ model Truck {
     routes Route[]
     orders Order[]
     user User@relation(fields: [userID], references: [id])
-        @@map("trucks")
+    @@map("trucks")
 }
 
 model Route {
     id Int @id @default(autoincrement())
     name String
-    street String //maybe change
+    street String
     userID Int
 
     trucks Truck[]
-        @@map("routes")
+
+    @@map("routes")
 
 }
