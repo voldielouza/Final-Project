@@ -8,13 +8,11 @@ export async function getAllTrucksHandler(req, res, next) {
         next(error);
     }
 }
+
 export async function getTruckByIdHandler(req, res, next) {
     try {
         const id = parseInt(req.params.id);
         const truck = await getTruckById(id);
-        if (!truck) {
-            return res.status(404).json({ message: 'Truck not found' });
-        }
         res.status(200).json(truck);
     } catch (error) {
         next(error);
@@ -25,22 +23,18 @@ export async function createTruckHandler(req, res, next) {
         const {name, licenseNumber} = req.body;
         const newTruck = await createTruck({name, licenseNumber, userId: req.user.id});
         res.status(201).json(newTruck);
+        console.log("BODY:", req.body);
     } catch (error) {
         next(error);
     }
-    
 }
 
 export async function updateTruckHandler(req, res, next){
-    try {
-        const id = parseInt(req.params.id);
-        const {name, licenseNumber} = req.body;
-        const updateTruck = await updateTruck(id, {name, licenseNumber});
-        res.status(200).json(updateTruck);
-    } catch (error) {
-        next(error);
-    }
-    
+    const id = parseInt(req.params.id);
+    const {name, licenseNumber} = req.body;
+    const updatedTruck = await updateTruck(id, {name, licenseNumber});
+    res.status(200).json(updatedTruck);
+
 }
 
 export async function deleteTruckHandler(req, res, next) {

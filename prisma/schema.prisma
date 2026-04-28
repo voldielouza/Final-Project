@@ -25,8 +25,10 @@ model User {
     role Role @default(CLIENT)
     address String
 
-    truckID Truck?
+
+    routeId Route[]
     orders Order[]
+    truck Truck?
     @@map("users")
 }
 
@@ -35,8 +37,8 @@ model Order {
     name String
     price Decimal
     shippingAddress String
+    truckId Int
     userId Int
-    truckId Int @unique
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
     truck Truck @relation(fields: [truckId], references: [id], onDelete: Cascade)
@@ -62,8 +64,7 @@ model Route {
     street String
     userId Int
 
+    user User@relation(fields: [userId], references: [id])
     trucks Truck[]
-
     @@map("routes")
-
 }

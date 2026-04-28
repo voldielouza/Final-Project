@@ -12,25 +12,25 @@ const usersData = [
     { id: 3, email: 'client1@email.com', password: 'password3', role: 'CLIENT', address: '789 Customer Ln' },
 ];
 
-const users = [];
+const users = []
 
-  for (const userData of usersData) {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
+for (const userData of usersData) {
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-    const user = await prisma.user.create({
+  const user = await prisma.user.create({
       data: {
         email: userData.email,
         password: hashedPassword,
-        role: userData.role || 'USER',
+        role: userData.role || 'CLIENT',
         address: userData.address
       },
     });
 
-    users.push(user);
-  }
+  users.push(user);
+}
 
 await prisma.user.createMany({
-data: users,
+data: usersData,
 skipDuplicates: true,
 });
 
@@ -45,8 +45,8 @@ skipDuplicates: true,
 });
 
 const orders = [
-    { id: 1, name: 'Order #101', price: 299.99, shippingAddress: '789 Customer Ln', userId: 3, truckId: 1 },
-    { id: 2, name: 'Order #102', price: 45.50, shippingAddress: '789 Customer Ln', userId: 3, truckId: 2 },
+    { id: 1, name: 'Order #101', price: 299.99, shippingAddress: '789 Customer Ln', truckId: 1, userId: 3},
+    { id: 2, name: 'Order #102', price: 45.50, shippingAddress: '789 Customer Ln', truckId: 2, userId: 3},
 ];
 
 await prisma.order.createMany({
@@ -55,8 +55,8 @@ skipDuplicates: true,
 });
 
 const routes = [
-    { id: 1, name: 'North Route', street: 'Highway 101', userId: 1 },
-    { id: 2, name: 'South Route', street: 'Interstate 95', userId: 2 },
+    { id: 1, name: 'North Route', street: 'Highway 101', userId: 1},
+    { id: 2, name: 'South Route', street: 'Interstate 95', userId: 1},
 ];
 
 await prisma.route.createMany({
