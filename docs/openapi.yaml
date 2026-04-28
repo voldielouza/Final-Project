@@ -492,12 +492,18 @@ components:
     UpdatedOrders:
       type: object     
       properties:
-            title: 
+            name: 
               type: string
-              example: 'First Order'
-            content:
+              example: 'Headphones'
+            price:
+              type: number
+              example: 200
+            shippingAddress:
               type: string
-              example: 'This is the content of the first Order'
+              example: '123 Example St'
+            truck: 
+              type: integer
+              example: 1
     Orders:
       type: object
       properties:
@@ -514,6 +520,9 @@ components:
             shippingAddress:
               type: string
               example: '123 Example St'
+            truck: 
+              type: integer
+              example: 1
             clientId: 
               type: integer
               readOnly: true
@@ -695,7 +704,7 @@ components:
                   type: string
             example:
               errors:
-                - 'Title must be at least 3 characters'
+                - 'Name must be at least 3 characters'
 
     InvalidTruckInput:
       description: Bad request due to invalid data

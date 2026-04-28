@@ -8,7 +8,7 @@ export async function getTruckById(id) {
     const truck = await getById(id);
     if (truck) return truck;
   
-    const error = new Error(`Post ${id} not found`);
+    const error = new Error(`Truck with ID: ${id} not found`);
     error.status = 404;
     throw error;
     
@@ -22,7 +22,7 @@ export async function updateTruck(id, updatedData) {
     const updatedTruck = await update(id, updatedData);
     if (updatedTruck) return updatedTruck;
     
-    const error = new Error(`Post ${id} not found`);
+    const error = new Error(`Truck with ID: ${id} not found`);
     error.status = 404;
     throw error;
     
@@ -32,7 +32,7 @@ export async function deleteTruck(id) {
     const result = await remove(id);
     if (result) return;
     
-    const error = new Error(`Post ${id} not found`);
+    const error = new Error(`Truck with ID: ${id} not found`);
     error.status = 404;
     throw error;
     

@@ -35,8 +35,8 @@ skipDuplicates: true,
 });
 
 const trucks = [
-    { id: 1, name: 'Truck1', licenseNumber: 'TRK-001', userID: 2 },
-    { id: 2, name: 'Truck2', licenseNumber: 'TRK-002', userID: 1 },
+    { id: 1, name: 'Truck1', licenseNumber: 'TRK-001', userId: 2 },
+    { id: 2, name: 'Truck2', licenseNumber: 'TRK-002', userId: 1 },
 ];
 
 await prisma.truck.createMany({
@@ -45,8 +45,8 @@ skipDuplicates: true,
 });
 
 const orders = [
-    { id: 1, name: 'Order #101', price: 299.99, shippingAddress: '789 Customer Ln', userID: 3, truckID: 1 },
-    { id: 2, name: 'Order #102', price: 45.50, shippingAddress: '789 Customer Ln', userID: 3, truckID: 2 },
+    { id: 1, name: 'Order #101', price: 299.99, shippingAddress: '789 Customer Ln', userId: 3, truckId: 1 },
+    { id: 2, name: 'Order #102', price: 45.50, shippingAddress: '789 Customer Ln', userId: 3, truckId: 2 },
 ];
 
 await prisma.order.createMany({
@@ -55,8 +55,8 @@ skipDuplicates: true,
 });
 
 const routes = [
-    { id: 1, name: 'North Route', street: 'Highway 101', userID: 1 },
-    { id: 2, name: 'South Route', street: 'Interstate 95', userID: 2 },
+    { id: 1, name: 'North Route', street: 'Highway 101', userId: 1 },
+    { id: 2, name: 'South Route', street: 'Interstate 95', userId: 2 },
 ];
 
 await prisma.route.createMany({

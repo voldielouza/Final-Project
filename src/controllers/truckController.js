@@ -35,8 +35,8 @@ export async function updateTruckHandler(req, res, next){
     try {
         const id = parseInt(req.params.id);
         const {name, licenseNumber} = req.body;
-        const updatedTruck = await updatedTruck(id, {name, licenseNumber});
-        res.status(200).json(updatedTruck);
+        const updateTruck = await updateTruck(id, {name, licenseNumber});
+        res.status(200).json(updateTruck);
     } catch (error) {
         next(error);
     }

@@ -60,7 +60,7 @@ model Route {
     id Int @id @default(autoincrement())
     name String
     street String
-    userID Int
+    userId Int
 
     trucks Truck[]
 

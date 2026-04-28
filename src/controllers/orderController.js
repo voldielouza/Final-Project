@@ -12,8 +12,8 @@ export async function getOrderByIdHandler(req, res) {
 }
 
 export async function createOrderHandler(req, res) {
-    const {name, price, shippingAddress} = req.body;
-    const newOrder = await createOrder({name, price, shippingAddress, userId: req.user.id});
+    const {name, price, shippingAddress, truckId} = req.body;
+    const newOrder = await createOrder({name, price, shippingAddress, truckId, truck: {connect: {id: truckId}}, user: {connect: {id: req.user.id}}});
     res.status(201).json(newOrder);
 }
 
