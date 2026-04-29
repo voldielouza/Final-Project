@@ -22,6 +22,8 @@ tags:
 paths: 
   /orders: 
     get:
+      security:
+      - bearerAuth: []
       tags:
         - Orders
       summary: Get all orders
@@ -64,6 +66,10 @@ paths:
                 $ref: '#/components/schemas/Orders'
         '400':
           $ref: '#/components/responses/InvalidOrderInput'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/InvalidAuth'
   /orders/{id}:
     get:
       security:
@@ -113,7 +119,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Orders'
         '400':
-        #invalid input or id is not a positive integer 
           $ref: '#/components/responses/InvalidUpOrderInput'
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -144,6 +149,9 @@ paths:
   
   /trucks: 
     get:
+      security:
+        - bearerAuth: []
+      
       tags:
         - Trucks
       summary: Get all trucks
@@ -186,6 +194,10 @@ paths:
                 $ref: '#/components/schemas/Trucks'
         '400':
           $ref: '#/components/responses/InvalidTruckInput'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/InvalidAuth'
   /trucks/{id}:
     get:
       security:
@@ -235,7 +247,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Trucks'
         '400':
-        #invalid input or id is not a positive integer 
           $ref: '#/components/responses/InvalidUpTruckInput'
         '401':
           $ref: '#/components/responses/Unauthorized'
@@ -266,6 +277,8 @@ paths:
   
   /routes: 
     get:
+      security: 
+      - bearerAuth: []
       tags:
         - Routes
       summary: Get all routes
@@ -308,6 +321,10 @@ paths:
                 $ref: '#/components/schemas/Routes'
         '400':
           $ref: '#/components/responses/InvalidRouteInput'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/InvalidAuth'
   /routes/{id}:
     get:
       security:
@@ -453,6 +470,10 @@ components:
   schemas: 
     SignUpCredentials:
       type: object
+      required:
+        - email
+        - address
+        - password
       properties:
         email:
           type: string
@@ -463,6 +484,11 @@ components:
         password:
           type: string
           example: 'password123'
+        role:
+          type: string
+          enum: [CLIENT, EMPLOYEE, ADMIN]
+          default: CLIENT
+          example: 'CLIENT'
     AuthCredentials:
       type: object
       properties:
@@ -479,9 +505,6 @@ components:
               type: integer
               readOnly: true
               example: 1
-            name:
-              type: string
-              example: 'John Doe'
             email: 
               type: string
               example: 'user@example.com'
