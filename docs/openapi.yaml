@@ -7,6 +7,9 @@ info:
 
 servers:
   - url: http://localhost:3000/api
+    description: local development servers
+  - url: https://final-project-service-gejm.onrender.com/
+    description: Production server
 
 tags:
   - name: Auth
